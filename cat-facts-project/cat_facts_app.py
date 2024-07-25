@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # API URL
-API_URL = "https://cat-fact.herokuapp.com/facts"
+API_URL = "https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=100"
 
 # Database setup
 engine = create_engine('sqlite:///cat_facts.db', echo=True)  # create connection to a SQLite database
