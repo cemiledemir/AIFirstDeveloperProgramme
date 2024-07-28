@@ -18,17 +18,12 @@ This project fetches random cat facts from an API and stores them in a SQLite da
 
 ## Usage
 
-1. Run the script to fetch and save cat facts:
-    ```bash
-    python cat_facts_app.py
-
-2. Run the Streamlit application to view the stored cat facts:
+1. Run the Streamlit application to view the stored cat facts:
 
     ```bash
-    streamlit run cat_facts_website.py
+    streamlit run cat_facts_app.py
    
 ## Project Structure
-* cat_facts_app.py: The main script to fetch and save cat facts.
-* cat_facts_website.py: The Streamlit application to view the stored cat facts.
+* cat_facts_app.py: The main script to fetch and save cat facts and Streamlit application to view the stored cat facts.
 * requirements.txt: List of required packages.
 * cat_facts.db: The SQLite database file

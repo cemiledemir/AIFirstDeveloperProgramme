@@ -2,6 +2,8 @@ import requests
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import streamlit as st
+import pandas as pd
 
 # API URL
 API_URL = "https://cat-fact.herokuapp.com/facts"
@@ -46,18 +48,61 @@ def save_cat_facts(facts):
     session.commit()
 
 
-def view_cat_facts():
-    facts = session.query(CatFact).all()
-    print("\nCat Facts in the Database:")
-    for fact in facts:
-        print(f"{fact.id}: {fact.fact}")
+# CSS for background color
+def set_background_color():
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background-color: #FFEBCC;
+        }
+        .card {
+            background-color: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 
+# Streamlit app
 def main():
-    facts = get_cat_facts()
-    if facts:
-        save_cat_facts(facts)
-        view_cat_facts()
+    set_background_color()
+
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        st.image('cat_facts.png')
+
+    with col2:
+        st.title('Cat Facts Viewer')
+
+    # Get all facts from the database
+    all_facts = session.query(CatFact).all()
+
+    # Convert to DataFrame for easier manipulation
+    df = pd.DataFrame([(fact.id, fact.fact) for fact in all_facts], columns=['id', 'fact'])
+
+    # Display total number of facts
+    st.write(f"Total number of cat facts: {len(df)}")
+
+    # Display data in a card-like format
+    if not df.empty:
+        for index, row in df.iterrows():
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h3>Cat Fact {index + 1}</h3>
+                    <p>{row['fact']}</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+    else:
+        st.write("No data available in the database.")
 
 
 if __name__ == "__main__":
