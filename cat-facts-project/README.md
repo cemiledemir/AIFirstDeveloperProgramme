@@ -2,6 +2,8 @@
 
 This project fetches random cat facts from an API and stores them in a SQLite database. The stored cat facts can be viewed using a Streamlit application.
 
+<img width="1623" alt="image" src="https://github.com/user-attachments/assets/ff176150-361f-43f8-ac8a-d9befa670370">
+
 ## Requirements
 
 - Python 3.x
